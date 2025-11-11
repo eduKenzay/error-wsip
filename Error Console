@@ -1,0 +1,151 @@
+# error-wsip
+
+[INFO] Using the instance URL 'https://antraxcraft.panel.gg' for installation...
+[INFO] Missing dependency Docker, running its install script...
+# Executing docker install script, commit: 7d96bd3c5235ab2121bcb855dd7b3f3f37128                                                                                                          ed4
++ sh -c 'apt-get -qq update >/dev/null'
++ sh -c 'DEBIAN_FRONTEND=noninteractive apt-get -y -qq install ca-certificates c                                                                                                          url >/dev/null'
++ sh -c 'install -m 0755 -d /etc/apt/keyrings'
++ sh -c 'curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" -o /etc/apt/k                                                                                                          eyrings/docker.asc'
++ sh -c 'chmod a+r /etc/apt/keyrings/docker.asc'
++ sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://d                                                                                                          ownload.docker.com/linux/ubuntu jammy stable" > /etc/apt/sources.list.d/docker.l                                                                                                          ist'
++ sh -c 'apt-get -qq update >/dev/null'
++ sh -c 'DEBIAN_FRONTEND=noninteractive apt-get -y -qq install docker-ce docker-                                                                                                          ce-cli containerd.io docker-compose-plugin docker-ce-rootless-extras docker-buil                                                                                                          dx-plugin docker-model-plugin >/dev/null'
+Scanning processes...
+Scanning candidates...
+Scanning linux images...
++ sh -c 'docker version'
+Client: Docker Engine - Community
+ Version:           29.0.0
+ API version:       1.52
+ Go version:        go1.25.4
+ Git commit:        3d4129b
+ Built:             Mon Nov 10 21:46:03 2025
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          29.0.0
+  API version:      1.52 (minimum version 1.44)
+  Go version:       go1.25.4
+  Git commit:       d105562
+  Built:            Mon Nov 10 21:46:03 2025
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.1.5
+  GitCommit:        fcd43222d6b07379a4be9786bda52438f0dd16a1
+ runc:
+  Version:          1.3.3
+  GitCommit:        v1.3.3-0-gd842d771
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+================================================================================
+
+To run Docker as a non-privileged user, consider setting up the
+Docker daemon in rootless mode for your user:
+
+    dockerd-rootless-setuptool.sh install
+
+Visit https://docs.docker.com/go/rootless/ to learn about rootless mode.
+
+
+To run the Docker daemon as a fully privileged service, but granting non-root
+users access, refer to https://docs.docker.com/go/daemon-access/
+
+WARNING: Access to the remote API on a privileged Docker daemon is equivalent
+         to root access on the host. Refer to the 'Docker daemon attack surface'
+         documentation for details: https://docs.docker.com/go/attack-surface/
+
+================================================================================
+
+[INFO] Starting and enabling docker...
+Synchronizing state of docker.service with SysV service script with /lib/systemd                                                                                                          /systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable docker
+[INFO] Making sure Docker works... (if this script suddenly stops, try 'docker r                                                                                                          un --rm hello-world' manually)
+[INFO] Missing dependency docker-compose, running its install script...
+[INFO] Pulling required docker images (this may take a while)...
+latest: Pulling from wisp/bootstrapper
+4f4fb700ef54: Pull complete
+9464fb472340: Pull complete
+0db432881c2d: Pull complete
+0ce54df80136: Pull complete
+a4fadc3926ff: Pull complete
+41af1b5f0f51: Pull complete
+cd60ec6387dd: Pull complete
+b4a18c778fea: Pull complete
+Digest: sha256:7c62acec9f6d4de9915886be95e7a7fd7f9da319f8998c233e32ae5639a04ef4
+Status: Downloaded newer image for quay.io/wisp/bootstrapper:latest
+quay.io/wisp/bootstrapper:latest
+latest: Pulling from wisp/modmanager
+3386e6af03b0: Pull complete
+1a0f3a523f04: Pull complete
+49ac0bbe6c8e: Pull complete
+ba7a2a4d7ef2: Pull complete
+d1983a67e104: Pull complete
+Digest: sha256:394fd8e355aa49b0847887d80dcefbd7fd46c82157f2409eabbe75dedf13629e
+Status: Downloaded newer image for quay.io/wisp/modmanager:latest
+quay.io/wisp/modmanager:latest
+[INFO] Creating required files for running WISP...
+[INFO] Reloading systemd and enabling WISP...
+Created symlink /etc/systemd/system/multi-user.target.wants/wisp.service → /etc/                                                                                                          systemd/system/wisp.service.
+[INFO] Starting WISP...
+Job for wisp.service failed because the control process exited with error code.
+See "systemctl status wisp.service" and "journalctl -xeu wisp.service" for detai                                                                                                          ls.
+root@vmi2897701:~# ^C
+root@vmi2897701:~# systemctl status wisp.service
+× wisp.service - WISP Bootstrapper (https://wisp.gg)
+     Loaded: loaded (/etc/systemd/system/wisp.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Tue 2025-11-11 06:36:29 CET; 7min ago
+    Process: 12595 ExecStartPre=/usr/local/bin/docker-compose pull (code=exited, status=1/FAILURE)
+        CPU: 601ms
+
+Nov 11 06:36:29 vmi2897701 systemd[1]: wisp.service: Scheduled restart job, restart counter is at 5.
+Nov 11 06:36:29 vmi2897701 systemd[1]: Stopped WISP Bootstrapper (https://wisp.gg).
+Nov 11 06:36:29 vmi2897701 systemd[1]: wisp.service: Start request repeated too quickly.
+Nov 11 06:36:29 vmi2897701 systemd[1]: wisp.service: Failed with result 'exit-code'.
+Nov 11 06:36:29 vmi2897701 systemd[1]: Failed to start WISP Bootstrapper (https://wisp.gg).
+root@vmi2897701:~# root@vmi2897701:~# bash <(wget -qO- 'https://billing.wisp.gg/install?license_key                                                                                                          =EB1F4D4B406119EBBC80D295C6F17764&instance_url=https%3A%2F%2Fantraxcraft.panel.g                                                                                                          g')
+[INFO] Using the instance URL 'https://antraxcraft.panel.gg' for installation...
+[INFO] Missing dependency Docker, running its install script...
+# Executing docker install script, commit: 7d96bd3c5235ab2121bcb855dd7b3f3f37128                                                                                                          ed4
++ sh -c 'apt-get -qq update >/dev/null'
++ sh -c 'DEBIAN_FRONTEND=noninteractive apt-get -y -qq install ca-certificates c                                                                                                          url >/dev/null'
++ sh -c 'install -m 0755 -d /etc/apt/keyrings'
++ sh -c 'curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" -o /etc/apt/k                                                                                                          eyrings/docker.asc'
++ sh -c 'chmod a+r /etc/apt/keyrings/docker.asc'
++ sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://d                                                                                                          ownload.docker.com/linux/ubuntu jammy stable" > /etc/apt/sources.list.d/docker.l                                                                                                          ist'
++ sh -c 'apt-get -qq update >/dev/null'
++ sh -c 'DEBIAN_FRONTEND=noninteractive apt-get -y -qq install docker-ce docker-                                                                                                          ce-cli containerd.io docker-compose-plugin docker-ce-rootless-extras docker-buil                                                                                                          dx-plugin docker-model-plugin >/dev/null'
+Scanning processes...
+Scanning candidates...
+Scanning linux images...
++ sh -c 'docker version'
+Client: Docker Engine - Community
+ Version:           29.0.0
+ API version:       1.52
+ Go version:        go1.25.4
+ Git commit:        3d4129b
+ Built:             Mon Nov 10 21:46:03 2025
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          29.0.0
+  API version:      1.52 (minimum version 1.44)
+  Go version:       go1.25.4
+  Git commit:       d105562
+  Built:            Mon Nov 10 21:46:03 2025
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.1.5
+  GitCommit:        fcd43222d6b07379a4be9786bda52438f0dd16a1
+ runc:
+  Version:          1.3.3
+  GitCommit:        v1.3.3-0-gd842d771
+ docker-init:
